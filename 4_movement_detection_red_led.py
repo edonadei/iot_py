@@ -24,5 +24,4 @@ try:
             GPIO.output(GREEN_LED, False)
             GPIO.output(RED_LED, True)
 except KeyboardInterrupt:
-    p.stop()  # stop the pulse emission
     GPIO.cleanup()
