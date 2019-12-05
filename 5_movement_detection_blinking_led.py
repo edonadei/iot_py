@@ -19,3 +19,6 @@ try:
         if GPIO.input(PIR_MOTION):
             # When output from motion sensor is HIGH
             blinkLED()
+            
+except KeyboardInterrupt:
+    GPIO.cleanup()
