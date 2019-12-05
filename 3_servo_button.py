@@ -27,11 +27,11 @@ try:
         
         button_state = GPIO.input(BUTTON)
         if (button_state == False):
-            changeAngle(initialAngleInDegree + 60)
-        else:
-            buzzerOFF()
-        changeAngle(askUserAngle())
-        
+            if (initialAngleInDegree == 180):
+                initialAngleInDegree = 0
+            else:
+                initialAngleInDegree = initialAngleInDegree + 60
+                changeAngle(initialAngleInDegree)        
 except KeyboardInterrupt:
     p.stop()  # stop the pulse emission
     GPIO.cleanup()
