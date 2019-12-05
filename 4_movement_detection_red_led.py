@@ -17,8 +17,8 @@ try:
     while True:
         if GPIO.input(PIR_MOTION):
             # When output from motion sensor is HIGH
-        GPIO.output(RED_LED, False)
-        GPIO.output(GREEN_LED, True)
+            GPIO.output(RED_LED, False)
+            GPIO.output(GREEN_LED, True)
         else:
             # When output from motion sensor is LOW
             GPIO.output(GREEN_LED, False)
