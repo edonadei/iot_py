@@ -7,7 +7,7 @@ p = GPIO.PWM(12, 50)
 p.start(2.5)  # initial position
 
 def askUserAngle():
-    value = input("Choose your angle in degrees [0...360]: ")
+    value = int(input("Choose your angle in degrees [0...360]: "))
     return value
 
 def changeAngle(angleChoosenInDegrees):
