@@ -13,12 +13,13 @@ def blinkLED():
     GPIO.output(RED_LED, True)
     time.sleep(0.2)
     GPIO.output(RED_LED, False)
+    time.sleep(0.2)
 
 try:
     while True:
         if GPIO.input(PIR_MOTION):
             # When output from motion sensor is HIGH
             blinkLED()
-            
+
 except KeyboardInterrupt:
     GPIO.cleanup()
