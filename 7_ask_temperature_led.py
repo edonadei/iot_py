@@ -8,6 +8,7 @@ LED = 27
 sensor = 22
 pin = 17
 
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(LED, GPIO.OUT)
 GPIO.output(LED, False)
 

@@ -9,6 +9,7 @@ GREEN_LED = 22
 sensor = 22
 pin = 17
 
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(RED_LED, GPIO.OUT)
 GPIO.output(RED_LED, False)
 GPIO.setup(GREEN_LED, GPIO.OUT)
