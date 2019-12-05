@@ -10,6 +10,7 @@ GPIO.setup(GREEN_LED, GPIO.OUT)
 GPIO.setup(RED_LED, GPIO.OUT)
 
 GPIO.output(GREEN_LED, False)
+GPIO.output(RED_LED, False)
 
 
 try:
