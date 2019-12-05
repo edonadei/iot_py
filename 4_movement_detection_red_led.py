@@ -23,4 +23,6 @@ try:
             # When output from motion sensor is LOW
             GPIO.output(GREEN_LED, False)
             GPIO.output(RED_LED, True)
-except KeyboardInterrupt
+except KeyboardInterrupt:
+    p.stop()  # stop the pulse emission
+    GPIO.cleanup()
