@@ -1,49 +1,34 @@
-import os
-import glob
+import sys
 import time
 import RPi.GPIO as GPIO
 import time
+import Adafruit_DHT
 
-LED = 17
-
-os.system('modprobe w1-gpio')
-os.system('modprobe w1-therm')
-
-base_dir = '/sys/bus/w1/devices/'
-device_folder = glob.glob(base_dir + '28*')[0]
-device_file = device_folder + '/w1_slave'
+LED = 27
+sensor = 22
+pin = 17
 
 GPIO.setup(LED, GPIO.OUT)
-
 GPIO.output(LED, False)
 
-def read_temp_raw():
-    f = open(device_file, 'r')
-    lines = f.readlines()
-    f.close()
-    return lines
+humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 
-
-def read_temp():
-    lines = read_temp_raw()
-    while lines[0].strip()[-3:] != 'YES':
-        time.sleep(0.2)
-        lines = read_temp_raw()
-        equals_pos = lines[1].find('t=')
-    if equals_pos != -1:
-        temp_string = lines[1][equals_pos+2:]
-        temp_c = float(temp_string) / 1000.0
-        temp_f = temp_c * 9.0 / 5.0 + 32.0
-    return temp_c, temp_f
 
 def askUserTemperature():
-    value = int(input("Choose your temperature in degre Celsius [0...A lot]: "))
+    value = int(
+        input("Choose your temperature in degre Celsius [0...A lot]: "))
     return value
+
 
 temperatureToDoNotReach = askUserTemperature()
 
 while True:
-    if (read_temp() > temperatureToDoNotReach):
-        GPIO.output(LED, True)
-    else: 
-        GPIO.output(LED, False)
+    if humidity is not None and temperature is not None:
+        #print('Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
+        if (temperature > temperatureToDoNotReach):
+            GPIO.output(LED, True)
+        else:
+            GPIO.output(LED, False)
+    else:
+        print('Failed to get reading. Try again!')
+    time.sleep(2)
