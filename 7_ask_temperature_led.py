@@ -24,7 +24,6 @@ temperatureToDoNotReach = askUserTemperature()
 
 while True:
     if humidity is not None and temperature is not None:
-        #print('Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
         if (temperature > temperatureToDoNotReach):
             GPIO.output(LED, True)
         else:
