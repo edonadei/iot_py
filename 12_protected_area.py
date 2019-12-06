@@ -18,6 +18,8 @@ GPIO.output(RED_LED, False)
 GPIO.output(GREEN_LED, False)
 GPIO.output(BUZZER, False)
 
+canStartAnotherThread = True
+
 class AsyncBuzzer():
     def __init__(self):
         thread = Thread(target=self.run, args=())
@@ -26,10 +28,13 @@ class AsyncBuzzer():
 
     def run(self):
         while True:
-            GPIO.output(BUZZER, True)
-            time.sleep(5)
-            GPIO.output(BUZZER, False)
-            break
+            if canStartAnotherThread:
+                canStartAnotherThread = False
+                GPIO.output(BUZZER, True)
+                time.sleep(5)
+                GPIO.output(BUZZER, False)
+                canStartAnotherThread = True
+                break
 
 
 def humanDetected(distance):
