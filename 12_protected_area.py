@@ -18,29 +18,29 @@ GPIO.output(RED_LED, False)
 GPIO.output(GREEN_LED, False)
 GPIO.output(BUZZER, False)
 
-
-class Buzzer(Thread):
-
-    """Thread to start a buzzer 5s"""
-
-    def __init__(self, time):
-        Thread.__init__(self)
-        self.timeBuzzer = int(time)
+class AsyncBuzzer():
+    def __init__(self):
+        thread = Thread(target=self.run, args=())
+        thread.daemon = True                            
+        thread.start()                                  
 
     def run(self):
-        GPIO.output(BUZZER, True)
-        time.sleep(self.timeBuzzer)
-        GPIO.output(BUZZER, False)
+        while True:
+            GPIO.output(BUZZER, True)
+            time.sleep(self.timeBuzzer)
+            GPIO.output(BUZZER, False)
+            break
 
 
 def humanDetected(distance):
-    if distance < 1001:
+    if distance < 101:
         GPIO.output(RED_LED, True)
         GPIO.out(GREEN_LED, False)
-        Buzzer(5).start
+        AsyncBuzzer()
     else:
         GPIO.output(RED_LED, False)
         GPIO.out(GREEN_LED, True)
+
 
 
 print("Distance Measurement In Progress")
