@@ -27,7 +27,7 @@ class AsyncBuzzer():
     def run(self):
         while True:
             GPIO.output(BUZZER, True)
-            time.sleep(self.timeBuzzer)
+            time.sleep(5)
             GPIO.output(BUZZER, False)
             break
 
@@ -35,11 +35,11 @@ class AsyncBuzzer():
 def humanDetected(distance):
     if distance < 101:
         GPIO.output(RED_LED, True)
-        GPIO.out(GREEN_LED, False)
+        GPIO.output(GREEN_LED, False)
         AsyncBuzzer()
     else:
         GPIO.output(RED_LED, False)
-        GPIO.out(GREEN_LED, True)
+        GPIO.output(GREEN_LED, True)
 
 
 
@@ -70,8 +70,6 @@ try:
         distance = pulse_duration * 17150
         distance = round(distance, 2)
 
-        GPIO.output(RED_LED, False)
-        GPIO.output(RED_LED, True)
         print("Distance:" + str(distance) + "cm")
         humanDetected(distance)
 
