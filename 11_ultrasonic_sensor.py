@@ -46,15 +46,18 @@ try:
         GPIO.output(RED_LED, False)
         GPIO.output(RED_LED, True)
         print("Distance:" + str(distance) + "cm")
-        # var distance
+
         # if distance is > 1m blink 1s
         if (distance > 1000):
             blinkLED(1)
-        elif (distance > 5 and distance < 1001):
-            blinkLED(0.001*distance)
-        else:
-            blinkLED(0.05)
+            print("We blink led {}s".format("1"))
         # if distance >5cm & <1m blink proportionally 
+        elif (distance > 5 and distance < 1001):
+            print("We blink led {}s".format(str(0.001*distance)))
+            blinkLED(0.001*distance)
         # if distance <5cm blink 50ms
+        else:
+            print("We blink led {}s".format("0.05"))
+            blinkLED(0.05)
 except KeyboardInterrupt:
     GPIO.cleanup()
