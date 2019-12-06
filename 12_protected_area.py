@@ -18,6 +18,7 @@ GPIO.output(RED_LED, False)
 GPIO.output(GREEN_LED, False)
 GPIO.output(BUZZER, False)
 
+global canStartAnotherThread
 canStartAnotherThread = True
 
 class AsyncBuzzer():
@@ -34,6 +35,8 @@ class AsyncBuzzer():
                 time.sleep(5)
                 GPIO.output(BUZZER, False)
                 canStartAnotherThread = True
+                break
+            else:
                 break
 
 
