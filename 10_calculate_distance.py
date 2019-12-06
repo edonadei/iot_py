@@ -2,18 +2,18 @@ import RPi.GPIO as GPIO
 import time
 
 def askUserMeterOrFeet():
-    choice = input("Meter(m) or feet(f): ")
+    choice = raw_input("Meter(m) or feet(f): ")
     if (choice == "f"):
         return True
     else:
         return False
 
+mesureInFeet = askUserMeterOrFeet()
+
 GPIO.setmode(GPIO.BCM)
 
 TRIG = 23
 ECHO = 24
-
-mesureInFeet = askUserMeterOrFeet()
 
 print("Distance Measurement In Progress")
 GPIO.setup(TRIG, GPIO.OUT)
