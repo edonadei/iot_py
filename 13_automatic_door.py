@@ -16,6 +16,9 @@ GPIO.setup(GREEN_LED, GPIO.OUT)
 GPIO.output(RED_LED, False)
 GPIO.output(GREEN_LED, False)
 
+# Setup of PIR Motion
+GPIO.setup(PIR_MOTION, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
 GPIO.setup(MOTOR, GPIO.OUT)
 p = GPIO.PWM(12, 50)
 p.start(2.5)  # initial position
@@ -46,30 +49,18 @@ class AsyncBehavior2():
             # do something
 
 
-def calculateDistance():
-    GPIO.output(TRIG, True)
-    time.sleep(0.00001)
-    GPIO.output(TRIG, False)
-
-    pulse_start = 0
-    pulse_end = 0
-
-    while GPIO.input(ECHO) == 0:
-        pulse_start = time.time()
-
-    while GPIO.input(ECHO) == 1:
-        pulse_end = time.time()
-
-    pulse_duration = pulse_end - pulse_start
-    distance = pulse_duration * 17150
-    return distance = round(distance, 2)
+def detectSomething():
+    if GPIO.input(PIR_MOTION):
+        return True
+    else:
+        return False
 
 
 def shopOpened():
     GPIO.output(GREEN_LED, True)
     GPIO.out(RED_LED, False)
     While True:
-        if (calculateDistance() < 101):
+        if (detectSomething()):
             p.ChangeDutyCycle(7.5)  # turn towards 90 degree
         else:
             p.ChangeDutyCycle(2.5)  # turn towards 90 degree
@@ -90,7 +81,7 @@ time.sleep(2)
 
 try:
     while True:
-        calculateDistance()
+        detectSomething()
 
 except KeyboardInterrupt:
     GPIO.cleanup()

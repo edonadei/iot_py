@@ -43,8 +43,6 @@ try:
         distance = pulse_duration * 17150
         distance = round(distance, 2)
 
-        GPIO.output(RED_LED, False)
-        GPIO.output(RED_LED, True)
         print("Distance:" + str(distance) + "cm")
 
         # if distance is > 1m blink 1s
